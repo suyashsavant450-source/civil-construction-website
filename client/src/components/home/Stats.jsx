@@ -1,49 +1,75 @@
-import { FaBuilding, FaUsers, FaAward, FaHammer } from "react-icons/fa";
+import {
+  FaBuilding,
+  FaUsers,
+  FaAward,
+  FaHardHat,
+} from "react-icons/fa";
 
 const stats = [
   {
-    icon: <FaBuilding size={30} />,
+    icon: <FaBuilding />,
     number: "250+",
-    title: "Projects Completed",
+    label: "Projects Completed",
   },
   {
-    icon: <FaHammer size={30} />,
+    icon: <FaHardHat />,
     number: "15+",
-    title: "Years Experience",
+    label: "Years Experience",
   },
   {
-    icon: <FaUsers size={30} />,
+    icon: <FaUsers />,
     number: "180+",
-    title: "Happy Clients",
+    label: "Happy Clients",
   },
   {
-    icon: <FaAward size={30} />,
+    icon: <FaAward />,
     number: "25+",
-    title: "Awards",
+    label: "Awards",
   },
 ];
 
 const Stats = () => {
   return (
-    <section className="bg-white py-16">
-      <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6">
-        {stats.map((item, index) => (
+    <section className="bg-slate-50 py-12 sm:py-16">
+      <div className="max-w-6xl mx-auto px-5 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+
+        {stats.map((stat, index) => (
           <div
             key={index}
-            className="rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 transition duration-300"
+            className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-7 text-center
+                       opacity-0 animate-[statsFade_0.7s_ease-out_forwards]"
+            style={{ animationDelay: `${index * 150}ms` }}
           >
-            <div className="flex justify-center text-yellow-500 mb-4">
-              {item.icon}
+
+            <div className="text-red-500 text-3xl sm:text-4xl flex justify-center mb-3">
+              {stat.icon}
             </div>
 
-            <h2 className="text-3xl font-bold text-slate-900">
-              {item.number}
-            </h2>
+            <h3 className="text-2xl sm:text-3xl font-bold text-blue-950">
+              {stat.number}
+            </h3>
 
-            <p className="mt-2 text-gray-600">{item.title}</p>
+            <p className="text-slate-500 mt-1 text-sm sm:text-base">
+              {stat.label}
+            </p>
+
           </div>
         ))}
+
       </div>
+
+      <style>{`
+        @keyframes statsFade {
+          from {
+            opacity: 0;
+            transform: translateY(25px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
 };

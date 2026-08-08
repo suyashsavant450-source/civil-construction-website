@@ -1,26 +1,16 @@
-import {
-  FaPhoneAlt,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaWhatsapp,
-} from "react-icons/fa";
-
+import { Link } from "react-router-dom";
+import logo from "../../assets/logos/logo.jpeg";
 import company from "../../data/company";
-import logo from "../../assets/logos/logo.jpg";
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-900 text-white">
+    <footer className="bg-blue-950 text-white">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-5 py-14">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
-          {/* Company */}
-
+          {/* COMPANY */}
           <div>
 
             <div className="flex items-center gap-3">
@@ -28,145 +18,96 @@ const Footer = () => {
               <img
                 src={logo}
                 alt={company.name}
-                className="h-14 w-14 object-contain"
+                className="w-14 h-14 object-contain bg-white rounded-lg p-1"
               />
 
               <div>
-                <h2 className="font-bold text-lg">
+                <h3 className="font-bold">
                   {company.name}
-                </h2>
+                </h3>
 
-                <p className="text-gray-400 text-sm">
+                <p className="text-xs text-gray-300">
                   {company.tagline}
                 </p>
-
               </div>
 
             </div>
 
-            <p className="mt-6 text-gray-400 leading-7">
-              We build residential, commercial and
-              infrastructure projects with quality,
-              innovation and trust.
+            <p className="text-gray-300 mt-5 leading-7">
+              Professional construction solutions with a commitment
+              to quality, safety and customer satisfaction.
             </p>
 
           </div>
 
-          {/* Quick Links */}
-
+          {/* QUICK LINKS */}
           <div>
 
-            <h3 className="text-xl font-semibold mb-5">
+            <h3 className="text-lg font-bold mb-5">
               Quick Links
             </h3>
 
-            <ul className="space-y-3 text-gray-400">
+            <div className="space-y-3">
 
-              <li><a href="/">Home</a></li>
+              <Link className="block text-gray-300 hover:text-red-400" to="/">
+                Home
+              </Link>
 
-              <li><a href="/about">About</a></li>
+              <Link className="block text-gray-300 hover:text-red-400" to="/about">
+                About
+              </Link>
 
-              <li><a href="/services">Services</a></li>
+              <Link className="block text-gray-300 hover:text-red-400" to="/services">
+                Services
+              </Link>
 
-              <li><a href="/projects">Projects</a></li>
+              <Link className="block text-gray-300 hover:text-red-400" to="/projects">
+                Projects
+              </Link>
 
-              <li><a href="/gallery">Gallery</a></li>
+              <Link className="block text-gray-300 hover:text-red-400" to="/gallery">
+                Gallery
+              </Link>
 
-              <li><a href="/contact">Contact</a></li>
-
-            </ul>
-
-          </div>
-
-          {/* Services */}
-
-          <div>
-
-            <h3 className="text-xl font-semibold mb-5">
-              Services
-            </h3>
-
-            <ul className="space-y-3 text-gray-400">
-
-              <li>Residential Construction</li>
-
-              <li>Commercial Construction</li>
-
-              <li>Renovation</li>
-
-              <li>Interior Works</li>
-
-              <li>Civil Engineering</li>
-
-            </ul>
-
-          </div>
-
-          {/* Contact */}
-
-          <div>
-
-            <h3 className="text-xl font-semibold mb-5">
-              Contact Us
-            </h3>
-
-            <div className="space-y-4 text-gray-400">
-
-              <p className="flex gap-3">
-
-                <FaPhoneAlt />
-
-                +91 XXXXX XXXXX
-
-              </p>
-
-              <p className="flex gap-3">
-
-                <FaEnvelope />
-
-                info@saibuilders.com
-
-              </p>
-
-              <p className="flex gap-3">
-
-                <FaMapMarkerAlt />
-
-                Karnataka, India
-
-              </p>
+              <Link className="block text-gray-300 hover:text-red-400" to="/contact">
+                Contact
+              </Link>
 
             </div>
 
-            <div className="flex gap-4 mt-8">
+          </div>
 
-              <a
-                href="#"
-                className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-yellow-500 transition"
-              >
-                <FaFacebookF />
-              </a>
+          {/* SERVICES */}
+          <div>
 
-              <a
-                href="#"
-                className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-yellow-500 transition"
-              >
-                <FaInstagram />
-              </a>
+            <h3 className="text-lg font-bold mb-5">
+              Our Services
+            </h3>
 
-              <a
-                href="#"
-                className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-yellow-500 transition"
-              >
-                <FaLinkedinIn />
-              </a>
+            <ul className="space-y-3 text-gray-300">
+              <li>Residential Construction</li>
+              <li>Commercial Construction</li>
+              <li>Renovation</li>
+              <li>Infrastructure Projects</li>
+              <li>Contract Works</li>
+            </ul>
 
-              <a
-                href="#"
-                className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-green-500 transition"
-              >
-                <FaWhatsapp />
-              </a>
+          </div>
+
+          {/* CONTACT */}
+          <div>
+
+            <h3 className="text-lg font-bold mb-5">
+              Contact Us
+            </h3>
+
+            <div className="space-y-4 text-gray-300">
+
+              <p>📞 Contact us for project enquiries</p>
+
+              <p>📧 Email us for business enquiries</p>
+
+              <p>📍 Karnataka, India</p>
 
             </div>
 
@@ -176,17 +117,12 @@ const Footer = () => {
 
       </div>
 
-      <div className="border-t border-slate-700">
+      <div className="border-t border-white/10">
 
-        <div className="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
+        <div className="max-w-7xl mx-auto px-5 py-5 text-center text-sm text-gray-400">
 
-          <p className="text-gray-400 text-sm">
-            © {new Date().getFullYear()} {company.name}. All Rights Reserved.
-          </p>
-
-          <p className="text-gray-500 text-sm mt-3 md:mt-0">
-            Designed & Developed by Suyash Savant
-          </p>
+          © {new Date().getFullYear()} {company.name}.
+          All Rights Reserved.
 
         </div>
 

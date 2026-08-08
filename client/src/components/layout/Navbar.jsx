@@ -1,215 +1,143 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
-import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 
 import company from "../../data/company";
-import logo from "../../assets/logos/logo.jpg";
-
-const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Services", path: "/services" },
-  { name: "Projects", path: "/projects" },
-  { name: "Gallery", path: "/gallery" },
-  { name: "Achievements", path: "/achievements" },
-  { name: "Contact", path: "/contact" },
-];
+import logo from "../../assets/logos/logo.jpeg";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
-    };
+  const links = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Services", path: "/services" },
+    { name: "Projects", path: "/projects" },
+    { name: "Gallery", path: "/gallery" },
+    { name: "Contact", path: "/contact" },
+  ];
 
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white shadow-xl py-2"
-          : "bg-white/95 backdrop-blur py-4"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div className="flex items-center justify-between">
+        {/* MAIN NAVBAR */}
+        <div className="min-h-20 flex items-center justify-between gap-4">
 
-          {/* Logo */}
-
-          <Link to="/" className="flex items-center gap-3">
-
+          {/* LOGO */}
+          <Link
+            to="/"
+            onClick={() => setMenuOpen(false)}
+            className="flex items-center gap-2 sm:gap-3 min-w-0"
+          >
             <img
               src={logo}
               alt={company.name}
-              className="h-14 w-14 object-contain"
+              className="w-11 h-11 sm:w-14 sm:h-14 object-contain shrink-0"
             />
 
-            <div className="hidden sm:block">
-              <h2 className="text-xl font-bold text-slate-900">
-                {company.name}
-              </h2>
+           <div className="max-w-[420px] sm:max-w-none">
+  <h1 className="text-xl sm:text-2xl font-bold text-blue-950 leading-tight">
+    {company.name}
+  </h1>
 
-              <p className="text-xs text-gray-500">
-                {company.tagline}
-              </p>
-            </div>
-
+  <p className="text-[12px] sm:text-sm text-gray-500 mt-0.5">
+    {company.tagline}
+  </p>
+</div>
           </Link>
 
-          {/* Desktop Menu */}
+          {/* DESKTOP MENU */}
+          <div className="hidden lg:flex items-center gap-5 xl:gap-7">
 
-          <nav className="hidden lg:flex items-center gap-8">
-
-            {navLinks.map((item) => (
-              <NavLink
-                key={item.name}
-                to={item.path}
-                className={({ isActive }) =>
-                  `font-medium transition-all duration-300 ${
-                    isActive
-                      ? "text-yellow-500"
-                      : "text-slate-700 hover:text-yellow-500"
-                  }`
-                }
+            {links.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`relative py-2 font-medium transition-colors duration-300 ${
+                  isActive(link.path)
+                    ? "text-red-500"
+                    : "text-slate-700 hover:text-red-500"
+                }`}
               >
-                {item.name}
-              </NavLink>
+                {link.name}
+
+                {/* ACTIVE LINE */}
+                {isActive(link.path) && (
+                  <span className="absolute left-0 right-0 -bottom-1 h-0.5 bg-red-500 rounded-full" />
+                )}
+              </Link>
             ))}
 
-          </nav>
-
-          {/* Right Buttons */}
-
-          <div className="hidden lg:flex items-center gap-3">
-
-            <a
-              href="tel:+910000000000"
-              className="flex items-center gap-2 rounded-xl border px-5 py-3 hover:bg-slate-100 transition"
+            {/* GET QUOTE */}
+            <Link
+              to="/contact"
+              className="bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg font-semibold shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
             >
-              <FaPhoneAlt />
-              Call
-            </a>
-
-            <a
-              href="https://wa.me/910000000000"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-2 rounded-xl bg-yellow-500 text-white px-5 py-3 hover:bg-yellow-600 transition"
-            >
-              <FaWhatsapp />
-              WhatsApp
-            </a>
+              Get Quote
+            </Link>
 
           </div>
 
-          {/* Mobile Menu Button */}
-
+          {/* MOBILE MENU BUTTON */}
           <button
-            onClick={() => setIsOpen(true)}
-            className="lg:hidden text-3xl"
+            type="button"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="lg:hidden flex items-center justify-center w-11 h-11 rounded-lg text-blue-950 hover:bg-red-50 hover:text-red-500 transition"
           >
-            <HiMenuAlt3 />
+            {menuOpen ? (
+              <HiX className="text-3xl" />
+            ) : (
+              <HiMenuAlt3 className="text-3xl" />
+            )}
           </button>
 
         </div>
-      </div>          {/* Mobile Menu Overlay */}
-          {isOpen && (
-            <div
-              className="fixed inset-0 bg-black/50 lg:hidden"
-              onClick={() => setIsOpen(false)}
-            />
-          )}
 
-          {/* Mobile Drawer */}
-          <div
-            className={`fixed top-0 right-0 h-screen w-80 bg-white shadow-2xl transition-transform duration-300 lg:hidden ${
-              isOpen ? "translate-x-0" : "translate-x-full"
-            }`}
-          >
-            {/* Drawer Header */}
-            <div className="flex items-center justify-between border-b p-5">
-              <div className="flex items-center gap-3">
-                <img
-                  src={logo}
-                  alt={company.name}
-                  className="h-12 w-12 object-contain"
-                />
+        {/* MOBILE MENU */}
+        <div
+          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            menuOpen
+              ? "max-h-[600px] opacity-100 pb-5"
+              : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="border-t border-slate-200 pt-3">
 
-                <div>
-                  <h2 className="font-bold text-slate-900 text-sm">
-                    {company.name}
-                  </h2>
-
-                  <p className="text-xs text-gray-500">
-                    {company.tagline}
-                  </p>
-                </div>
-              </div>
-
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-3xl text-slate-700"
+            {links.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                onClick={() => setMenuOpen(false)}
+                className={`flex items-center px-4 py-3.5 rounded-lg font-medium transition-all duration-200 ${
+                  isActive(link.path)
+                    ? "bg-red-50 text-red-500"
+                    : "text-slate-700 hover:bg-red-50 hover:text-red-500"
+                }`}
               >
-                <HiX />
-              </button>
-            </div>
+                {link.name}
+              </Link>
+            ))}
 
-            {/* Mobile Navigation */}
-            <nav className="flex flex-col p-6">
-
-              {navLinks.map((item) => (
-                <NavLink
-                  key={item.name}
-                  to={item.path}
-                  onClick={() => setIsOpen(false)}
-                  className={({ isActive }) =>
-                    `py-4 text-lg border-b transition ${
-                      isActive
-                        ? "text-yellow-500 font-semibold"
-                        : "text-slate-700 hover:text-yellow-500"
-                    }`
-                  }
-                >
-                  {item.name}
-                </NavLink>
-              ))}
-
-            </nav>
-
-            {/* Bottom Buttons */}
-            <div className="absolute bottom-8 left-6 right-6 space-y-4">
-
-              <a
-                href="tel:+910000000000"
-                className="flex justify-center items-center gap-2 rounded-xl border border-slate-300 py-3 font-semibold hover:bg-slate-100 transition"
-              >
-                <FaPhoneAlt />
-                Call Now
-              </a>
-
-              <a
-                href="https://wa.me/910000000000"
-                target="_blank"
-                rel="noreferrer"
-                className="flex justify-center items-center gap-2 rounded-xl bg-green-500 py-3 text-white font-semibold hover:bg-green-600 transition"
-              >
-                <FaWhatsapp />
-                WhatsApp
-              </a>
-
-            </div>
+            {/* MOBILE GET QUOTE */}
+            <Link
+              to="/contact"
+              onClick={() => setMenuOpen(false)}
+              className="block text-center mt-3 bg-red-500 hover:bg-red-600 text-white py-3.5 rounded-lg font-semibold transition"
+            >
+              Get Quote
+            </Link>
 
           </div>
+        </div>
 
-        </header>
+      </nav>
+    </header>
   );
 };
 

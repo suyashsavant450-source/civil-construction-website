@@ -1,42 +1,46 @@
+import { Link } from "react-router-dom";
+
 const CTA = () => {
   return (
-    <section className="bg-slate-900 py-20">
-      <div className="max-w-6xl mx-auto px-6 text-center">
+    <section className="bg-blue-950 py-20 px-5 relative overflow-hidden">
 
-        <p className="text-yellow-500 font-semibold uppercase tracking-wider">
-          Let's Build Together
+      <div className="absolute right-0 top-0 w-64 h-64 bg-red-500/20 rounded-full blur-3xl" />
+
+      <div className="relative max-w-4xl mx-auto text-center">
+
+        <p className="text-red-400 font-bold uppercase">
+          Start Your Project
         </p>
 
-        <h2 className="text-3xl md:text-5xl font-bold text-white mt-4">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mt-3">
           Ready To Build Your Dream Project?
         </h2>
 
-        <p className="mt-6 text-gray-300 text-lg max-w-2xl mx-auto">
-          We provide high-quality residential, commercial and civil construction
-          services with trust, quality and timely delivery.
+        <p className="text-gray-300 mt-5 max-w-2xl mx-auto">
+          Get in touch with Sai Builders and Constructions
+          for reliable and professional construction solutions.
         </p>
 
-        <div className="mt-10 flex flex-col sm:flex-row justify-center gap-5">
+        <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+
+          <Link
+            to="/contact"
+            className="bg-red-500 hover:bg-red-600 text-white px-8 py-3.5 rounded-lg font-semibold transition"
+          >
+            Contact Us
+          </Link>
 
           <a
-            href="tel:+9100000000"
-            className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-8 py-4 rounded-xl transition"
+            href="https://wa.me/"
+            className="border-2 border-white text-white hover:bg-white hover:text-blue-950 px-8 py-3.5 rounded-lg font-semibold transition"
           >
-            📞 Call Now
-          </a>
-
-          <a
-            href="https://wa.me/9100000000"
-            target="_blank"
-            rel="noreferrer"
-            className="border-2 border-white hover:bg-white hover:text-slate-900 text-white font-semibold px-8 py-4 rounded-xl transition"
-          >
-            💬 WhatsApp
+            WhatsApp
           </a>
 
         </div>
 
       </div>
+
     </section>
   );
 };
