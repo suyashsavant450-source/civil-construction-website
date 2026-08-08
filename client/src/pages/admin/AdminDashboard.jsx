@@ -37,9 +37,7 @@ const isValidImagePath = (path) => {
 const ImagePreview = ({ path }) => {
   if (!path) {
     return (
-      <div className="mt-4 h-48 rounded-xl bg-slate-100
-                      border border-dashed border-slate-300
-                      flex items-center justify-center">
+      <div className="mt-4 h-48 flex items-center justify-center bg-slate-100 rounded-xl border">
         <p className="text-slate-400 text-sm">
           Image preview will appear here
         </p>
@@ -47,44 +45,12 @@ const ImagePreview = ({ path }) => {
     );
   }
 
-  if (!isValidImagePath(path)) {
-    return (
-      <div className="mt-4 h-48 rounded-xl bg-red-50
-                      border border-red-200
-                      flex flex-col items-center justify-center">
-        <p className="text-red-600 text-sm font-semibold">
-          ❌ Invalid image format
-        </p>
-
-        <p className="text-red-500 text-xs mt-1">
-          Use JPG, JPEG, PNG, WEBP or GIF.
-        </p>
-      </div>
-    );
-  }
-
   return (
-    <div className="mt-4 rounded-xl overflow-hidden border border-slate-200">
+    <div className="mt-4 rounded-xl overflow-hidden border border-slate-200 bg-slate-100">
       <img
         src={path}
         alt="Image Preview"
         className="w-full h-48 object-cover"
-        onError={(e) => {
-          e.currentTarget.style.display = "none";
-
-          const parent = e.currentTarget.parentElement;
-
-          parent.innerHTML = `
-            <div class="h-48 flex flex-col items-center justify-center bg-red-50">
-              <p class="text-red-600 text-sm font-semibold">
-                ❌ Image not found
-              </p>
-              <p class="text-red-500 text-xs mt-1">
-                Check the image path and filename.
-              </p>
-            </div>
-          `;
-        }}
       />
     </div>
   );
