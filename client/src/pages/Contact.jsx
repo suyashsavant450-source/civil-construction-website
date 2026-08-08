@@ -6,7 +6,12 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+} from "firebase/firestore";
+
 import { db } from "../firebase";
 
 import BackButton from "../components/common/BackButton";
@@ -22,12 +27,16 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
 
+  // ================= FORM CHANGE =================
+
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
   };
+
+  // ================= SUBMIT ENQUIRY =================
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,10 +51,10 @@ const Contact = () => {
       setSuccess("");
 
       await addDoc(collection(db, "enquiries"), {
-        name: form.name,
-        phone: form.phone,
-        email: form.email,
-        message: form.message,
+        name: form.name.trim(),
+        phone: form.phone.trim(),
+        email: form.email.trim(),
+        message: form.message.trim(),
         status: "New",
         createdAt: serverTimestamp(),
       });
@@ -60,20 +69,26 @@ const Contact = () => {
         email: "",
         message: "",
       });
-
     } catch (error) {
       console.error("Error submitting enquiry:", error);
-      alert("Something went wrong. Please try again.");
+
+      alert(
+        "Something went wrong. Please check your internet connection and try again."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-white">
+
+      {/* ================= BACK BUTTON ================= */}
+
       <BackButton />
 
-      {/* HEADER */}
+      {/* ================= HEADER ================= */}
+
       <section className="bg-blue-950 text-white py-20">
         <div className="max-w-7xl mx-auto px-5 text-center">
 
@@ -92,14 +107,16 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* CONTACT */}
+      {/* ================= CONTACT SECTION ================= */}
+
       <section className="py-16 sm:py-20">
 
         <div className="max-w-7xl mx-auto px-5">
 
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-12">
 
-            {/* INFO */}
+            {/* ================= CONTACT INFO ================= */}
+
             <div>
 
               <p className="text-red-500 font-semibold uppercase">
@@ -118,6 +135,7 @@ const Contact = () => {
               <div className="mt-8 space-y-6">
 
                 {/* PHONE */}
+
                 <div className="flex items-start gap-4">
 
                   <div className="shrink-0 w-12 h-12 rounded-xl bg-red-50 text-red-500 flex items-center justify-center">
@@ -125,6 +143,7 @@ const Contact = () => {
                   </div>
 
                   <div>
+
                     <h3 className="font-bold text-blue-950">
                       Phone
                     </h3>
@@ -146,11 +165,13 @@ const Contact = () => {
                       </a>
 
                     </div>
+
                   </div>
 
                 </div>
 
                 {/* EMAIL */}
+
                 <div className="flex items-start gap-4">
 
                   <div className="shrink-0 w-12 h-12 rounded-xl bg-red-50 text-red-500 flex items-center justify-center">
@@ -158,6 +179,7 @@ const Contact = () => {
                   </div>
 
                   <div>
+
                     <h3 className="font-bold text-blue-950">
                       Email
                     </h3>
@@ -168,11 +190,13 @@ const Contact = () => {
                     >
                       saibuilders5105@gmail.com
                     </a>
+
                   </div>
 
                 </div>
 
                 {/* LOCATION */}
+
                 <div className="flex items-start gap-4">
 
                   <div className="shrink-0 w-12 h-12 rounded-xl bg-red-50 text-red-500 flex items-center justify-center">
@@ -180,6 +204,7 @@ const Contact = () => {
                   </div>
 
                   <div>
+
                     <h3 className="font-bold text-blue-950">
                       Location
                     </h3>
@@ -194,13 +219,15 @@ const Contact = () => {
                       Near Basaveshwar Bank, Manik Nagar,
                       Nippani, Karnataka 591237
                     </a>
+
                   </div>
 
                 </div>
 
               </div>
 
-              {/* WHATSAPP */}
+              {/* ================= WHATSAPP ================= */}
+
               <a
                 href="https://wa.me/919916129353"
                 target="_blank"
@@ -211,20 +238,26 @@ const Contact = () => {
                            hover:-translate-y-1 w-fit"
               >
                 <FaWhatsapp className="text-xl" />
+
                 Contact on WhatsApp
               </a>
 
             </div>
 
-            {/* FORM */}
+            {/* ================= ENQUIRY FORM ================= */}
+
             <div
-              className="bg-slate-50 border border-slate-200 rounded-2xl
-                         p-6 sm:p-9 shadow-sm"
+              className="bg-slate-50 border border-slate-200
+                         rounded-2xl p-6 sm:p-9 shadow-sm"
             >
 
               <h2 className="text-2xl font-bold text-blue-950">
                 Send Us a Message
               </h2>
+
+              <p className="mt-2 text-slate-500 text-sm">
+                Fill in your details and our team will contact you.
+              </p>
 
               <form
                 onSubmit={handleSubmit}
@@ -232,7 +265,9 @@ const Contact = () => {
               >
 
                 {/* NAME */}
+
                 <div>
+
                   <label className="block text-sm font-semibold text-slate-700 mb-2">
                     Your Name
                   </label>
@@ -243,13 +278,19 @@ const Contact = () => {
                     value={form.name}
                     onChange={handleChange}
                     placeholder="Enter your name"
-                    className="w-full border border-slate-300 rounded-lg px-4 py-3
-                               outline-none focus:border-red-500 transition"
+                    className="w-full border border-slate-300
+                               rounded-lg px-4 py-3
+                               outline-none focus:border-red-500
+                               transition"
+                    required
                   />
+
                 </div>
 
                 {/* PHONE */}
+
                 <div>
+
                   <label className="block text-sm font-semibold text-slate-700 mb-2">
                     Phone Number
                   </label>
@@ -260,13 +301,19 @@ const Contact = () => {
                     value={form.phone}
                     onChange={handleChange}
                     placeholder="Enter phone number"
-                    className="w-full border border-slate-300 rounded-lg px-4 py-3
-                               outline-none focus:border-red-500 transition"
+                    className="w-full border border-slate-300
+                               rounded-lg px-4 py-3
+                               outline-none focus:border-red-500
+                               transition"
+                    required
                   />
+
                 </div>
 
                 {/* EMAIL */}
+
                 <div>
+
                   <label className="block text-sm font-semibold text-slate-700 mb-2">
                     Email
                   </label>
@@ -277,13 +324,18 @@ const Contact = () => {
                     value={form.email}
                     onChange={handleChange}
                     placeholder="Enter email"
-                    className="w-full border border-slate-300 rounded-lg px-4 py-3
-                               outline-none focus:border-red-500 transition"
+                    className="w-full border border-slate-300
+                               rounded-lg px-4 py-3
+                               outline-none focus:border-red-500
+                               transition"
                   />
+
                 </div>
 
                 {/* MESSAGE */}
+
                 <div>
+
                   <label className="block text-sm font-semibold text-slate-700 mb-2">
                     Message
                   </label>
@@ -294,26 +346,35 @@ const Contact = () => {
                     value={form.message}
                     onChange={handleChange}
                     placeholder="Tell us about your project..."
-                    className="w-full border border-slate-300 rounded-lg px-4 py-3
-                               outline-none focus:border-red-500 transition
-                               resize-none"
+                    className="w-full border border-slate-300
+                               rounded-lg px-4 py-3
+                               outline-none focus:border-red-500
+                               transition resize-none"
+                    required
                   />
+
                 </div>
 
-                {/* SUCCESS */}
+                {/* SUCCESS MESSAGE */}
+
                 {success && (
-                  <div className="bg-green-50 border border-green-200 text-green-700 rounded-lg p-3 text-sm">
+                  <div
+                    className="bg-green-50 border border-green-200
+                               text-green-700 rounded-lg p-3 text-sm"
+                  >
                     {success}
                   </div>
                 )}
 
                 {/* SUBMIT */}
+
                 <button
                   type="submit"
                   disabled={loading}
                   className="w-full bg-red-500 hover:bg-red-600
                              disabled:bg-red-300 text-white
-                             py-3 rounded-lg font-semibold transition"
+                             py-3 rounded-lg font-semibold
+                             transition"
                 >
                   {loading ? "Sending..." : "Send Message"}
                 </button>
@@ -328,7 +389,8 @@ const Contact = () => {
 
       </section>
 
-      {/* MAP CTA */}
+      {/* ================= MAP CTA ================= */}
+
       <section className="bg-slate-50 py-12">
 
         <div className="max-w-4xl mx-auto px-5 text-center">
@@ -341,6 +403,11 @@ const Contact = () => {
 
           <p className="mt-3 text-slate-600">
             Nippani, Karnataka
+          </p>
+
+          <p className="mt-2 text-slate-500 text-sm">
+            C93M+HGP, Nippani-Chikodi Road, Near Basaveshwar Bank,
+            Manik Nagar, Nippani, Karnataka 591237
           </p>
 
           <a
@@ -358,7 +425,8 @@ const Contact = () => {
 
       </section>
 
-      {/* CTA */}
+      {/* ================= CTA ================= */}
+
       <section className="bg-blue-950 py-16 text-center text-white">
 
         <div className="max-w-3xl mx-auto px-5">
@@ -370,6 +438,31 @@ const Contact = () => {
           <p className="mt-4 text-slate-300">
             Talk to Sai Builders and Contractors today.
           </p>
+
+          <div className="mt-7 flex flex-col sm:flex-row
+                          justify-center gap-4">
+
+            <a
+              href="tel:9916129353"
+              className="bg-white text-blue-950
+                         px-6 py-3 rounded-lg
+                         font-semibold hover:bg-slate-100 transition"
+            >
+              Call Us
+            </a>
+
+            <a
+              href="https://wa.me/919916129353"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-green-500 hover:bg-green-600
+                         text-white px-6 py-3 rounded-lg
+                         font-semibold transition"
+            >
+              WhatsApp Us
+            </a>
+
+          </div>
 
         </div>
 
